@@ -1,25 +1,87 @@
+<h1>Testing Rock Paper Scissors</h1>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+        .score {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-  <script>
-     // 7. Declare const variable max
-    const max = 57;
+    <h1>Rock Paper Scissors</h1>
+    <p>Choose your weapon to play against the computer:</p>
 
-    // 8. Declare const variable actual
-    const actual = max - 13;
+    <div class="buttons">
+        <button onclick="playGame('rock')">🪨 Rock</button>
+        <button onclick="playGame('paper')">📄 Paper</button>
+        <button onclick="playGame('scissors')">✂️ Scissors</button>
+    </div>
 
-    // 9. Declare const variable percentage
-    const percentage = actual / max;
+    <div class="results">
+        <p id="choices">Make a move to start!</p>
+        <p id="round-result"></p>
+        <p class="score">Player: <span id="player-score">0</span> | Computer: <span id="computer-score">0</span></p>
+    </div>
 
-    // 10. Log the percentage
-    console.log(percentage); // Logs: 0.7719298245614035
-  </script>
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function getComputerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        function playGame(playerChoice) {
+            const computerChoice = getComputerChoice();
+            let result = "";
+
+            document.getElementById('choices').innerText = `You chose ${playerChoice}. Computer chose ${computerChoice}.`;
+
+            if (playerChoice === computerChoice) {
+                result = "It's a tie!";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win this round!";
+                playerScore++;
+            } else {
+                result = "Computer wins this round!";
+                computerScore++;
+            }
+
+            document.getElementById('round-result').innerText = result;
+            document.getElementById('player-score').innerText = playerScore;
+            document.getElementById('computer-score').innerText = computerScore;
+        }
+    </script>
 </body>
 </html>
-
